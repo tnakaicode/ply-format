@@ -14,16 +14,6 @@ from mayavi import mlab
 from plyfile import PlyData
 
 
-def main():
-    parser = ArgumentParser()
-    parser.add_argument('ply_filename')
-
-    args = parser.parse_args()
-
-    plot(PlyData.read(args.ply_filename))
-    mlab.show()
-
-
 def plot(ply):
     '''
     Plot vertices and triangles from a PlyData instance. Assumptions:
@@ -44,11 +34,12 @@ def plot(ply):
         tri_idx = ply['face']['vertex_indices']
         idx_dtype = tri_idx[0].dtype
 
-        triangles = numpy.fromiter(tri_idx, [('data', idx_dtype, (3,))],
-                                   count=len(tri_idx))['data']
+        triangles = numpy.fromiter(tri_idx, [('data', idx_dtype, (3,))], count=len(tri_idx)+1)
 
         mlab.triangular_mesh(x, y, z, triangles,
                              color=(1, 0, 0.4), opacity=0.5)
 
 
-main()
+if __name__ == "__main__":
+    plot(PlyData.read("./tet.ply"))
+    mlab.show()

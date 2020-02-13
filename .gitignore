@@ -1,4 +1,9 @@
-*~
+# VSCode
+.vscode/*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
 *.pyc
 *.swp
 *.egg-info
@@ -8,3 +13,9 @@ dist/
 .tox
 .cache
 .pytest_cache
+
+# Doc
+*.pdf
+*.html
+*.docx
+*~
