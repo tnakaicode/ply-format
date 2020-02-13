@@ -22,10 +22,7 @@ import numpy as _np
 from sys import byteorder as _byteorder
 
 
-try:
-    _range = xrange
-except NameError:
-    _range = range
+_range = range
 
 
 # Many-many relation
@@ -127,7 +124,7 @@ class _PlyHeaderParser(object):
             self._error("expected one of {%s}" %
                         ", ".join(self._allowed))
 
-        getattr(self, 'parse_' + keyword)(line[len(keyword)+1:])
+        getattr(self, 'parse_' + keyword)(line[len(keyword) + 1:])
         return self._allowed
 
     def _error(self, message="parse error"):
