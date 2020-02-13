@@ -14,26 +14,27 @@ plydata.elements[0].data[0]
 vertex = np.array([(0, 0, 0),
                    (0, 1, 1),
                    (1, 0, 1),
-                   (1, 1, 0)],
+                   (1, 1, 0),
+                   (1, 2, 0)],
                   dtype=[('x', 'f4'), ('y', 'f4'),
                          ('z', 'f4')])
-face = np.array([([0, 1, 2], 255, 255, 255),
-                 ([0, 2, 3], 255, 0, 0),
-                 ([0, 1, 3], 0, 255, 0),
-                 ([1, 2, 3], 0, 0, 255)],
+face = np.array([([0, 1, 2], 255, 255, 255, 0.0),
+                 ([0, 2, 3], 255, 0, 0, 1.0),
+                 ([0, 1, 3], 0, 255, 0, 2.0),
+                 ([1, 2, 3], 0, 0, 255, 3.0),
+                 ([1, 2, 4], 0, 0, 255, 4.0)],
                 dtype=[('vertex_indices', 'i4', (3,)),
-                       ('red', 'u1'), ('green', 'u1'),
-                       ('blue', 'u1')])
+                       ('color1', 'u1'), ('color2', 'u1'),
+                       ('color3', 'u1'), ('color4', 'f4')])
 
 elv = PlyElement.describe(vertex, "vertex")
 elf = PlyElement.describe(face, "face")
 
-PlyData([elv, elf]).write('some_binary.ply')
 PlyData([elv, elf], text=True).write('some_ascii.ply')
 
-# Force the byte order of the output to big-endian, independently of
-# the machine's native byte order
-PlyData([elv, elf], byte_order='>').write('some_big_endian_binary.ply')
+# Force the byte order of the output to big-endian,
+# independently of the machine's native byte order
+PlyData([elv, elf], byte_order='>').write('some_binary.ply')
 
 # Use a file object.  Binary mode is used here, which will cause
 # Unix-style line endings to be written on all systems.
